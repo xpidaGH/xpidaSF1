@@ -4,6 +4,7 @@ import { SiShopware } from "react-icons/si";
 import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
+import { sites } from "../data/dummy";
 import { links } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 
@@ -32,7 +33,8 @@ const Sidebar = () => {
               onClick={handleCloseSideBar}
               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
             >
-              <SiShopware /> <span>xpida</span>
+              <SiShopware />
+              <span>xpida</span>
             </Link>
             <TooltipComponent content="Menu" position="BottomCenter">
               <button
@@ -45,7 +47,31 @@ const Sidebar = () => {
               </button>
             </TooltipComponent>
           </div>
-          <div className="mt-10 ">
+          <div className="mt-5">
+            {sites.map((item) => (
+              <div key={item.title}>
+                <span className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase">
+                  {item.title}
+                </span>
+                {item.sites.map((link) => (
+                  <NavLink
+                    to={link.url}
+                    key={link.url}
+                    onClick={handleCloseSideBar}
+                    style={({ isActive }) => ({
+                      backgroundColor: isActive ? currentColor : "",
+                    })}
+                    className={({ isActive }) =>
+                      isActive ? activeLink : normalLink
+                    }
+                  >
+                    <span>{link.name}</span>
+                  </NavLink>
+                ))}
+              </div>
+            ))}
+          </div>
+          <div className="mt-5">
             {links.map((item) => (
               <div key={item.title}>
                 <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase">
